@@ -1,5 +1,5 @@
 BeauWest.Vehicle_Tracker,
-  app 'beauwest',
+  app 'beauwest.vehicle_tracker',
   db off
 
 Last_Vehicle_Id,
