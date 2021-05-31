@@ -1,0 +1,7 @@
+BeauWest.Vehicle_Tracker,
+  app 'beauwest',
+  db off
+
+Last_Vehicle_Id,
+  cache,
+  value q(SELECT Vehicle FROM Fillup WHERE Vehicle IS NOT NULL ORDER BY Date DESC LIMIT 1)

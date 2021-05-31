@@ -1,0 +1,49 @@
+BeauWest.Vehicle_Tracker.Dashboard,
+  db off,
+  bp mode = 'edit',
+  launchpad,
+  menu,
+  menuCaption 'Vehicle Dashboard',
+  icon 'gas-station',
+  caption 'Vehicle Dashboard',
+  lp {
+    Chart_Range.displayValue = 'Last 30 days';
+    updateStats();
+  },
+  du(e?.table?.endsWith('vehicle') && __mode === 'client') updateStats(),
+  reload(e?.table?.endsWith('vehicle') && __mode === 'client') updateStats(),
+  du(e?.table?.endsWith('fillup') && __mode === 'client') updateStats(),
+  reload(e?.table?.endsWith('fillup') && __mode === 'client') updateStats()
+
+# region 'toolbar', bu
+Add_Fillup,
+  caption 'Add Fillup',
+  ac insert('Fillup')
+
+Fillups,
+  ac browse('Fillup')
+
+Vehicles,
+  ac browse('Vehicle')
+#
+
+Vehicle_List,
+  markdown,
+  ro,
+  displayValue displayVehicles()
+
+[Client]
+function updateStats() {
+  resetParam('Vehicles.displayValue');
+}
+
+[Client]
+function displayVehicles() {
+  const vehicles = query(SELECT Name, MPG, Fillup_Costs FROM Vehicle ORDER BY Name, {subscribe: true});
+
+  let markdown = [];
+  for (const vehicle of vehicles) {
+    markdown.push(``);
+  }
+  return displayMarkdownTable(vehicles);
+}

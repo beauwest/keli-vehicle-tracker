@@ -1,0 +1,30 @@
+BeauWest.Vehicle_Tracker.Vehicle
+
+Name,
+  string
+
+Registration,
+  string
+
+Year,
+  string
+
+Make,
+  string
+
+Model,
+  string
+
+VIN,
+  string
+
+MPG,
+  decimal 18.2,
+  c (SELECT AVG(MPG) FROM Fillup WHERE Vehicle = NEW.Id AND MPG > 0)
+
+Fillup_Costs,
+  money,
+  c (SELECT SUM(Total) FROM Fillup WHERE Vehicle = NEW.Id)
+
+//Other_Costs,
+//  money

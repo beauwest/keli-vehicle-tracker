@@ -1,0 +1,56 @@
+BeauWest.Vehicle_Tracker.Fillup
+
+Browse,
+  o (ORDER BY Odometer)
+
+# vis _edit
+Date,
+  datetime,
+  init 'c'
+
+Vehicle,
+  join 'Vehicle',
+  init Last_Vehicle_Id
+
+Vehicle.Name,
+  lookupHintFields ['Year', 'Make', 'Model', 'Registration']
+
+Price,
+  money,
+  agg 'avg()'
+
+Quantity,
+  decimal 18.3,
+  agg 'avg()'
+
+Total,
+  money,
+  c (SELECT ROUND(Quantity * Price, 2))
+
+Odometer,
+  int
+
+Missed_Last,
+  realBool
+
+MPG,
+  decimal 18.2,
+  agg 'avg()',
+  c (SELECT CASE
+       WHEN Missed_Last IS TRUE OR COALESCE(Quantity, 0) = 0
+       THEN NULL
+       ELSE (Odometer - Previous_Odometer) / Quantity
+     END)
+
+# vis off
+Previous_Odometer,
+  int,
+  c (SELECT Odometer FROM Fillup WHERE Id != NEW.Id AND Date < NEW.Date ORDER BY Date DESC, Created_Date DESC LIMIT 1)
+
+# vis(_browse) on
+Vehicle.Name, position(_browse) 1
+Odometer, position(_browse) 2
+Total, position(_browse) 3
+MPG, position(_browse) 4
+Date, position(_browse) 5
+#
