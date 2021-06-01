@@ -21,10 +21,12 @@ Add_Fillup,
   ac insert('Fillup')
 
 Fillups,
-  ac browse('Fillup')
+  ac browse('Fillup'),
+  icon 'gas-station'
 
 Vehicles,
-  ac browse('Vehicle')
+  ac browse('Vehicle'),
+  icon 'car-side'
 #
 
 Vehicle_List,
