@@ -26,5 +26,6 @@ Fillup_Costs,
   money,
   c (SELECT SUM(Total) FROM Fillup WHERE Vehicle = NEW.Id)
 
-//Other_Costs,
-//  money
+Other_Costs,
+  money,
+  c (SELECT SUM(Total) FROM Expense WHERE Vehicle = NEW.Id)

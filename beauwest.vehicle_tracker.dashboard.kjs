@@ -27,6 +27,10 @@ Fillups,
 Vehicles,
   ac browse('Vehicle'),
   icon 'car-side'
+
+Expenses,
+  ac browse('Expense'),
+  icon 'car-cog'
 #
 
 Vehicle_List,
@@ -36,12 +40,12 @@ Vehicle_List,
 
 [Client]
 function updateStats() {
-  resetParam('Vehicles.displayValue');
+  resetParam('Vehicle_List.displayValue');
 }
 
 [Client]
 function displayVehicles() {
-  const vehicles = query(SELECT Name, MPG, Fillup_Costs FROM Vehicle ORDER BY Name, {subscribe: true});
+  const vehicles = query(SELECT Name, MPG, Fillup_Costs, Other_Costs FROM Vehicle ORDER BY Name, {subscribe: true});
 
   let markdown = [];
   for (const vehicle of vehicles) {
