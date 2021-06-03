@@ -1,0 +1,19 @@
+BeauWest.Vehicle_Tracker.Expense
+
+Browse,
+  o (ORDER BY Date)
+
+Date,
+  date,
+  init 'c'
+
+Vehicle.Name,
+  lookupHintFields ['Year', 'Make', 'Model', 'Registration']
+
+Expense_Type.Name
+
+Total,
+  money
+
+Notes,
+  text

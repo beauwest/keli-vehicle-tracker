@@ -1,0 +1,8 @@
+BeauWest.Vehicle_Tracker.Expense_Type
+
+Name,
+  string
+
+Costs,
+  money,
+  c (SELECT SUM(Total) FROM Expense WHERE Expense_Type = NEW.Id)
