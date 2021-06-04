@@ -36,14 +36,14 @@ Expenses,
 Vehicle_List,
   markdown,
   ro,
-  displayValue displayVehicles()
+  value displayVehicles()
 
 [Client]
 function updateStats() {
   resetParam('Vehicle_List.displayValue');
 }
 
-[Client]
+[Client, Server]
 function displayVehicles() {
   const vehicles = query(SELECT Name, MPG, Fillup_Costs, Other_Costs FROM Vehicle ORDER BY Name, {subscribe: true});
 

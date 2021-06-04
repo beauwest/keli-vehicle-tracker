@@ -20,11 +20,28 @@ VIN,
 
 MPG,
   decimal 18.2,
+  caption 'Average MPG',
   c (SELECT AVG(MPG) FROM Fillup WHERE Vehicle = NEW.Id AND MPG > 0)
+
+MPG_Last,
+  decimal 18.2,
+  c (SELECT MPG FROM Fillup WHERE Vehicle = NEW.Id AND MPG > 0 ORDER BY Date DESC LIMIT 1)
+
+MPG_Best,
+  decimal 18.2,
+  c (SELECT MAX(MPG) FROM Fillup WHERE Vehicle = NEW.Id)
+
+Fillup_Count,
+  int,
+  c (SELECT COUNT(Id) FROM Fillup WHERE Vehicle = NEW.Id)
 
 Fillup_Costs,
   money,
   c (SELECT SUM(Total) FROM Fillup WHERE Vehicle = NEW.Id)
+
+Fillup_Gallons,
+  int,
+  c (SELECT ROUND(Quantity) FROM Fillup WHERE Vehicle = NEW.Id)
 
 Other_Costs,
   money,
